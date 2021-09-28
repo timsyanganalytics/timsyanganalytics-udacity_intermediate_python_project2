@@ -7,7 +7,7 @@ quote and the author.
 
 TODO: Flask
 
-## Environment
+## Environment and set up
 Set up this project on a unique conda environment with python 3.9
 `conda create --name meme_generator python=3.9`
 
@@ -24,9 +24,19 @@ This project
 ```bash
 ├── src
 │   ├── _data
-│   │   ├── **/*.css
+│   │   ├── *
 │   ├── MemeEngine
+│   │   ├── __init__.py
+│   │   ├── meme_engine.py
 │   ├── QuoteEngine
+│   │   ├── __init__.py
+│   │   ├── ingestor_interfaces.py
+│   │   ├── ingestor.py
+│   │   ├── quote_model.py
+│   ├── templates
+│   │   ├── *
+│   ├── tmp
+│   │   ├── (output)
 │   ├── app.py
 │   ├── meme.py
 ├── requirements.txt
@@ -36,4 +46,83 @@ This project
 ```
 
 ## How to run?
+
+Run meme.py from project root folder
+
+#### Program 1: meme.py 
+(generate memes and save pitures on the local folder)
+It supports CLI arguments via argparser. 
+
+Run
+```python
+python3 meme.py
+```
+
+Run `--help` first to check the optional arguments:
+```bash
+usage: meme.py [-h] [--path PATH] [--body BODY] [--author AUTHOR]
+
+Load an image and texts to generate meme.
+
+optional arguments:
+  -h, --help       show this help message and exit
+  --path PATH      The path of the image to generate a meme
+  --body BODY      The main text to be put on the image
+  --author AUTHOR  The author of the main text to be put on the image
+```
+
+#### Program 2: app.py
+
+TODO
+
+## Submodules
+
+
+### QuoteEngine submodule
+
+Create quote objects by ingesting various sources through ingestion interfaces (II) 
+from `ingestor_interfaces.py`, including:
+
+- .csv (via `CSVIngestorInterface`)
+- .txt (via `TXTIngestorInterface`)
+- .pdf (via `PDFIngestorInterface`)
+- .docx (via `DOCXIngestorInterface`)
+
+The script `ingestor.py` is used to determine which II to choose, in order to make the ingestion
+
+The `QuoteModel` class from `quote_model.py` holds the quote object ingested from an II, with:
+- body (ex. "He who smelt it...")
+- author (ex. "stinky")
+
+submodule structure
+```bash
+├── QuoteEngine
+│   ├── __init__.py
+│   ├── ingestor_interfaces.py
+│   ├── ingestor.py
+│   ├── quote_model.py
+```
+
+
+### MemeEngine submodule
+
+Generate meme by placing a quote ingested from the QuoteEngine module, on top
+of a randomly chosen `.jpg` picture of a dog.
+
+Main functionality in the meme_engine.py
+
+- load image using Pillow (PIL)
+- resize the image with max width at 500px,
+    and the height is scaled proportionally
+- add a quote body and a quote author to the image
+- save the manipulated image
+- implement the instance method that returns the path to the manipulated image
+    make_meme(self, img_path, text, author, width=500) -> str
+
+submodule structure
+```bash
+├── MemeEngine
+│   ├── __init__.py
+│   ├── meme_engine.py
+```
 
