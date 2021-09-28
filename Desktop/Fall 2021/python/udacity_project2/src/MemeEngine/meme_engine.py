@@ -1,4 +1,5 @@
 """Class MemeEngine.
+
 Main functionality:
     - load image using Pillow (PIL)
     - resize the image with max width at 500px,
@@ -15,11 +16,12 @@ from PIL import Image, ImageFont, ImageDraw
 
 
 class MemeEngine:
-
+    """The MemeEngine object to load, resize, add quote, and save the create meme."""
+    
     acceptable_image_path_type = ["jpg"]
 
     def __init__(self, output_dir: str):
-        """Instantiates a MemeEngine onject.
+        """Instantiate a MemeEngine onject.
 
         Args:
             image_path (str): path of the image to be loaded from
@@ -33,8 +35,7 @@ class MemeEngine:
             os.makedirs(self.output_dir)
 
     def _can_ingest_image(self, img_path):
-        """Determine if the image can be ingested, by checking if
-        the image is of jpg type
+        """Determine if the image can be ingested, by checking if the image is of jpg type.
 
         Returns:
             - (boolean) True / False
@@ -43,7 +44,7 @@ class MemeEngine:
         return image_path_type in self.acceptable_image_path_type
 
     def _load_image(self, img_path: str):
-        """Function to load the image
+        """Function to load the image.
 
         first check if the image can be loaded
 
@@ -56,7 +57,7 @@ class MemeEngine:
             raise Exception("Image must be of jpg files")
 
     def _resize_image(self, image, width):
-        """Function to resize image by the width specified
+        """Function to resize image by the width specified.
 
         Args:
             image: the image object that is loaded by `load_image` function
@@ -126,8 +127,17 @@ class MemeEngine:
         return output_path
 
     def make_meme(self, img_path, text, author, width=500) -> str:
-        """ """
+        """The main function to run end-to-end MemeEngine steps.
 
+        Args:
+            img_path: path of the image to make the meme
+            text: the body text
+            author: the author text
+            width: (default=500) the width to re-size the picture
+
+        Returns:
+            output_path: the output path of the final meme product
+        """
         if text is None and author is None:
             raise Exception("Please specify a text and an author!")
 

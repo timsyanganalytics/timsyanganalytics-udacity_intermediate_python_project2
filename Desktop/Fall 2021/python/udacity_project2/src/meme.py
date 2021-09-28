@@ -1,3 +1,5 @@
+"""The meme generator via command line interface."""
+
 import os
 import random
 import argparse
@@ -10,7 +12,16 @@ OUTPUT_PATH = "./tmp"
 
 
 def generate_meme(path=None, body=None, author=None):
-    """Generate a meme given an path and a quote"""
+    """Generate a meme given an path and a quote.
+    
+    Args:
+        - path: (optional) the input path of meme picture
+        - body: (optional) the body text for the meme picture
+        - author: (optional) the author text for the meme picture
+
+    Returns:
+        - the output path of the meme in local
+    """
     img = None
     quote = None
 
@@ -53,9 +64,9 @@ def generate_meme(path=None, body=None, author=None):
 def make_args():
     """Create an ArgumentParser for this script.
 
-    :return: A tuple of the path, body and author parsers.
+    Returns: 
+        - A tuple of the path, body and author parsers.
     """
-
     parser = argparse.ArgumentParser(
         description="Load an image and texts to generate meme."
     )

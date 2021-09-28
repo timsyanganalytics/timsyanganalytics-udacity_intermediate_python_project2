@@ -1,5 +1,5 @@
-"""This ingestor interfaces engine is.
-"""
+"""This ingestor interfaces engine abstract base class and subclasses."""
+
 import os
 import docx
 import pandas as pd
@@ -34,12 +34,14 @@ class IngestorInterface(ABC):
 
     @classmethod
     def can_ingest(cls, path: str) -> bool:
+        """Determine if the path is okay to be ingested."""
         file_type = path.split(".")[-1]
         return file_type in cls.target_file_type
 
     @classmethod
     @abstractmethod
     def parse(cls, path: str) -> List[QuoteModel]:
+        """Initialize as pass."""
         pass
 
 
@@ -50,7 +52,14 @@ class CSVIngestorInterface(IngestorInterface):
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
+        """Parse csv files into QuoteModel.
+        
+        Args:
+            - path: the path of the file which contains quotes - to be parsed
 
+        Returns:
+            - list of QuoteModel with each element a quote (body, author)
+        """
         if not cls.can_ingest(path):
             file_type = path.split(".")[-1]
             raise Exception(f"Documents of file type {file_type} cannot be ingested")
@@ -72,7 +81,14 @@ class TXTIngestorInterface(IngestorInterface):
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
+        """Parse txt files into QuoteModel.
+        
+        Args:
+            - path: the path of the file which contains quotes - to be parsed
 
+        Returns:
+            - list of QuoteModel with each element a quote (body, author)
+        """
         if not cls.can_ingest(path):
             file_type = path.split(".")[-1]
             raise Exception(f"Documents of file type {file_type} cannot be ingested")
@@ -96,7 +112,14 @@ class DOCXIngestorInterface(IngestorInterface):
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
+        """Parse docx files into QuoteModel.
+        
+        Args:
+            - path: the path of the file which contains quotes - to be parsed
 
+        Returns:
+            - list of QuoteModel with each element a quote (body, author)
+        """
         if not cls.can_ingest(path):
             file_type = path.split(".")[-1]
             raise Exception(f"Documents of file type {file_type} cannot be ingested")
@@ -119,7 +142,14 @@ class PDFIngestorInterface(IngestorInterface):
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
+        """Parse pdf files into QuoteModel.
+        
+        Args:
+            - path: the path of the file which contains quotes - to be parsed
 
+        Returns:
+            - list of QuoteModel with each element a quote (body, author)
+        """
         if not cls.can_ingest(path):
             file_type = path.split(".")[-1]
             raise Exception(f"Documents of file type {file_type} cannot be ingested")

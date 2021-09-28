@@ -1,3 +1,5 @@
+"""Define Ingestor_ class to consolidate all four types of interface ingestors."""
+
 from typing import List
 
 from .quote_model import QuoteModel
@@ -11,7 +13,7 @@ from .ingestor_interfaces import (
 
 
 class Ingestor_(IngestorInterface):
-    """The ingestor class to consolidate all 4 ingestor interfaces"""
+    """The ingestor class to consolidate all 4 ingestor interfaces."""
 
     ingestor_types = [
         CSVIngestorInterface,
@@ -22,6 +24,7 @@ class Ingestor_(IngestorInterface):
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
+        """Determine which ingestor interface to use depending on the doc type."""
         try:
             path_type = path.split(".")[-1]
             if path_type.lower() == "csv":

@@ -1,3 +1,5 @@
+"""The __init__ module for MemeEngine subpackage."""
+
 from .ingestor_interfaces import (
     IngestorInterface,
     CSVIngestorInterface,
