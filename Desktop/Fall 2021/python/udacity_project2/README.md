@@ -1,11 +1,12 @@
 # Meme Generator
 
 ## Overview
-This project is an interactive app that generates meme with a quote from an author,
-on top of a dog picture. It supports command line inputs for you to customize the
+This project is an interactive app that generates (and saves to your local) meme with a quote from an author,
+on top of a (by default, dog) picture. It supports command line inputs for you to customize the
 quote and the author. 
 
-TODO: Flask
+A Flask app allows you to generate random meme on top of local dog pictures, and allows
+you to customize your own meme with pictures online (via `requests`)
 
 ## Environment and set up
 Set up this project on a unique conda environment with python 3.9
@@ -50,12 +51,12 @@ This project
 Run meme.py from project root folder
 
 #### Program 1: meme.py 
-(generate memes and save pitures on the local folder)
+(Generate memes and save pitures on the local folder)
 It supports CLI arguments via argparser. 
 
-Run
+Run in the `/src` directory
 ```python
-python3 meme.py
+python3 meme.py [-h] [--path PATH] [--body BODY] [--author AUTHOR]
 ```
 
 Run `--help` first to check the optional arguments:
@@ -72,11 +73,26 @@ optional arguments:
 ```
 
 #### Program 2: app.py
+(Generates random or customized meme via a Flask app)
 
-TODO
+Run in the `/src` directory
+```python
+python3 app.py
+```
+
+You will be able to access the app through http://127.0.0.1:5000/ (landing page for "random"). 
+
+![](app_random.png)
+
+You can also create your own meme through http://127.0.0.1:5000/create 
+
+![](app_create.png)
+
+If the requests for the image url does not return 200, the app will generate error
+and you need to select another image url that can be requested
+
 
 ## Submodules
-
 
 ### QuoteEngine submodule
 

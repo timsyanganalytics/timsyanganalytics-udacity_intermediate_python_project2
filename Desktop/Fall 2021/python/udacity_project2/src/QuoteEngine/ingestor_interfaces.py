@@ -124,7 +124,7 @@ class PDFIngestorInterface(IngestorInterface):
             file_type = path.split(".")[-1]
             raise Exception(f"Documents of file type {file_type} cannot be ingested")
 
-        with open(path, 'rb') as f:
+        with open(path, "rb") as f:
             pdf = pdftotext.PDF(f)
 
         quotes = pdf[0].split("\n")
@@ -138,30 +138,3 @@ class PDFIngestorInterface(IngestorInterface):
                 return outputs
             except Exception as e:
                 print(e)
-
-        return None
-        # Convert pdf to txt file first using subprocess
-        # if not os.path.exists(cls.TEMP_PATH):
-        #     os.makedirs(cls.TEMP_PATH)
-
-        # try:
-        #     temp_output = os.path.join(cls.TEMP_PATH, "pdf_to_txt.txt")
-        #     subprocess.run(["pdftotext", path, temp_output])
-        # except:
-        #     raise Exception("Invalid subprocess call")
-
-        # The same as parsing txt files
-        # bodies = []
-        # authors = []
-        # with open(temp_output, "r") as f:
-        #     lines = f.readlines()
-
-        # for line in lines:
-        #     bodies.append(line.split(" - ")[0])
-        #     authors.append(line.split(" - ")[1])
-
-        # # Remove the temp_output file
-        # if os.path.exists(temp_output):
-        #     os.remove(temp_output)
-
-        # return [QuoteModel(body, author) for body, author in zip(bodies, authors)]

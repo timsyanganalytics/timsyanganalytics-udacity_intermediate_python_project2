@@ -29,6 +29,9 @@ class MemeEngine:
         self.output_dir = output_dir
         assert isinstance(self.output_dir, str), "Image path must be string"
 
+        if not os.path.exists(self.output_dir):
+            os.makedirs(self.output_dir)
+
     def _can_ingest_image(self, img_path):
         """Determine if the image can be ingested, by checking if
         the image is of jpg type
@@ -63,8 +66,8 @@ class MemeEngine:
         """
         try:
             _width, _height = image.size
-            shrinkage = width / float(_width)
-            new_width, new_height = width, _height * shrinkage
+            shrinkage = width / _width
+            new_width, new_height = int(round(width)), int(round(_height * shrinkage))
             new_image = image.resize((new_width, new_height))
         except Exception as e:
             print(e)
@@ -75,8 +78,6 @@ class MemeEngine:
         image,
         body,
         author,
-        font_quote="sans-serif.ttf",
-        font_author="sans-serif.ttf",
     ):
         """Add quote body and author to the image.
 
@@ -93,15 +94,20 @@ class MemeEngine:
         draw = ImageDraw.Draw(image)
         width, height = image.size
         try:
-            font = ImageFont.load_default()
-            # TODO: change font size
+            font = ImageFont.truetype(
+                "./fonts/DejaVuSans.ttf", size=20, encoding="utf-8"
+            )
         except Exception as e:
             print(e)
 
         text = f"{body} - {author}"
 
-        # Black, font size = 30
-        draw.text((width / 4, height / 2), text, fill=(0, 0, 0), font=font)
+        draw.text(
+            (width / 16, height * random.randint(2, 8) / 16),
+            text,
+            fill=(random.randint(0, 255), 0, 0),
+            font=font,
+        )
 
         return image
 

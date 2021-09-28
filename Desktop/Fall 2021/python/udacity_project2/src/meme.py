@@ -8,8 +8,9 @@ from MemeEngine import MemeEngine
 
 OUTPUT_PATH = "./tmp"
 
+
 def generate_meme(path=None, body=None, author=None):
-    """ Generate a meme given an path and a quote """
+    """Generate a meme given an path and a quote"""
     img = None
     quote = None
 
@@ -25,10 +26,10 @@ def generate_meme(path=None, body=None, author=None):
 
     if body is None:
         quote_files = [
-            './_data/DogQuotes/DogQuotesTXT.txt',
-            './_data/DogQuotes/DogQuotesDOCX.docx',
-            './_data/DogQuotes/DogQuotesPDF.pdf',
-            './_data/DogQuotes/DogQuotesCSV.csv'
+            "./_data/DogQuotes/DogQuotesTXT.txt",
+            "./_data/DogQuotes/DogQuotesDOCX.docx",
+            "./_data/DogQuotes/DogQuotesPDF.pdf",
+            "./_data/DogQuotes/DogQuotesCSV.csv",
         ]
         quotes = []
         for f in quote_files:
@@ -37,7 +38,7 @@ def generate_meme(path=None, body=None, author=None):
         quote = random.choice(quotes)
     else:
         if author is None:
-            raise Exception('Author Required if Body is Used')
+            raise Exception("Author Required if Body is Used")
         quote = QuoteModel(body, author)
 
     # Check if output path already exists
@@ -51,7 +52,7 @@ def generate_meme(path=None, body=None, author=None):
 
 def make_args():
     """Create an ArgumentParser for this script.
-    
+
     :return: A tuple of the path, body and author parsers.
     """
 
